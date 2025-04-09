@@ -1,0 +1,34 @@
+{% extends 'MyInventoryApp/base.html' %}
+
+{% block title %}View Bottles{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Water Bottles</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>SKU</th>
+                <th>Color</th>
+                <th>Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bottle in bottles %}
+                <tr>
+                    <td>{{ bottle.brand }}</td>
+                    <td>{{ bottle.sku }}</td>
+                    <td>{{ bottle.color }}</td>
+                    <td>{{ bottle.size }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">No water bottles available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}

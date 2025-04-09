@@ -1,0 +1,105 @@
+/* Custom styles to enhance Bootstrap */
+
+body {
+  background-color: #f8f9fa;
+  padding-top: 20px;
+}
+
+.container {
+  max-width: 1140px;
+}
+
+/* Card styling */
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
+/* Form styling */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+/* Alert styling */
+.alert {
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+/* Table styling */
+.table-container {
+  overflow-x: auto;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  border-top: none;
+}
+
+/* Navigation styling */
+.navbar {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+/* Login/Signup page specific */
+.auth-card {
+  max-width: 450px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.auth-title {
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 25px;
+  color: #343a40;
+}
+
+/* Supplier list styling */
+.supplier-row {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.supplier-row:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Action buttons container */
+.action-buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 10px;
+}
