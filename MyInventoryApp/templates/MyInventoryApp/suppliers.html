@@ -1,0 +1,55 @@
+{% extends 'MyInventoryApp/base.html' %}
+{% load static %}
+
+{% block title %}View Suppliers{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Suppliers</h2>
+    
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Supplier Name</th>
+                <th>Contact Info</th>
+                <th>Location</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supplier in suppliers %}
+                <tr>
+                    <td>{{ supplier.name }}</td>
+                    <td>{{ supplier.contact_info }}</td>
+                    <td>{{ supplier.location }}</td>
+                    <td>{{ supplier.email|default:"-" }}</td>
+                    <td>{{ supplier.phone|default:"-" }}</td>
+                    <td>
+                        <a href="#">View Bottles</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">No suppliers available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="action-links">
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+{% endblock %}
