@@ -1,55 +1,96 @@
 {% extends 'MyInventoryApp/base.html' %}
 {% load static %}
 
-{% block title %}View Suppliers{% endblock %}
+{% block title %}Suppliers | My Inventory{% endblock %}
+
+{% block sidebar %}
+<li class="nav-item">
+    <a class="nav-link active" href="{% url 'view_supplier' %}">
+        <i class="material-icons">business</i>
+        Suppliers
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'view_bottles' %}">
+        <i class="material-icons">local_drink</i>
+        Water Bottles
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'add_bottle' %}">
+        <i class="material-icons">add_circle_outline</i>
+        Add Water Bottles
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="#">
+        <i class="material-icons">account_circle</i>
+        Manage Account
+    </a>
+</li>
+<li class="nav-item mt-3">
+    <a class="nav-link text-danger" href="{% url 'logout' %}">
+        <i class="material-icons">logout</i>
+        Logout
+    </a>
+</li>
+{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>Suppliers</h2>
-    
-    {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <div class="message {{ message.tags }}">
-                    {{ message }}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="card-title mb-0">Suppliers</h4>
                 </div>
-            {% endfor %}
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <div class="table-responsive mt-3">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>City</th>
+                                    <th>Country</th>
+                                    <th>Created At</th>
+                                    <th class="text-center">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if suppliers %}
+                                    {% for supplier in suppliers %}
+                                        <tr>
+                                            <td>{{ supplier.name }}</td>
+                                            <td>{{ supplier.city }}</td>
+                                            <td>{{ supplier.country }}</td>
+                                            <td>{{ supplier.created_at|date:"F j, Y" }}</td>
+                                            <td class="text-center">
+                                                <a href="{% url 'view_bottles' %}?supplier={{ supplier.id }}" class="btn btn-sm btn-outline-primary">
+                                                    View Bottles
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">No suppliers found.</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    {% endif %}
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Supplier Name</th>
-                <th>Contact Info</th>
-                <th>Location</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for supplier in suppliers %}
-                <tr>
-                    <td>{{ supplier.name }}</td>
-                    <td>{{ supplier.contact_info }}</td>
-                    <td>{{ supplier.location }}</td>
-                    <td>{{ supplier.email|default:"-" }}</td>
-                    <td>{{ supplier.phone|default:"-" }}</td>
-                    <td>
-                        <a href="#">View Bottles</a>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="6">No suppliers available.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
-    <div class="action-links">
-        <a href="{% url 'logout' %}">Logout</a>
     </div>
 </div>
 {% endblock %}
