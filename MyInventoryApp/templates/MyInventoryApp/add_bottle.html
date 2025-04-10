@@ -14,34 +14,10 @@
     <li class="nav-item">
         <a class="nav-link active" href="{% url 'view_supplier' %}">
             <i class="material-icons">business</i>
-            Suppliers
+            Back to Suppliers
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'view_bottles' %}">
-            <i class="material-icons">local_drink</i>
-            Water Bottles
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'add_bottle' %}">
-            <i class="material-icons">add_circle_outline</i>
-            Add Water Bottles
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'manage_account' pk=account.pk %}">
-            <i class="material-icons">settings</i>
-            Manage Account
-        </a>
-    </li>
-    <li class="nav-item mt-3">
-        <a class="nav-link text-danger" href="{% url 'logout' %}">
-            <i class="material-icons">logout</i>
-            Logout
-        </a>
-    </li>
-</ul>
+</ul>    
 {% endblock %}
 
 {% block content %}
