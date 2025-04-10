@@ -1,5 +1,21 @@
 {% extends 'MyInventoryApp/base.html' %}
 
+{% block sidebar %}
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="">
+            <i class="material-icons">account_circle</i>
+            <strong>{{account.username}}</strong>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'view_supplier' %}">
+            <i class="material-icons">business</i>
+            Back to Suppliers
+        </a>
+    </li>
+{% endblock %}
+
 {% block content %}
 <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
     <div class="card col-md-4">
@@ -7,13 +23,13 @@
             <h4>Manage Account</h4>
         </div>
         <div class="card-body text-center">
-            <p class="mb-4"><strong>Username:</strong> {{ account.username }}</p>
+            <p class="mb-4">Username: <strong>{{ account.username }}</strong></p>
 
             <div class="d-grid mb-2">
-                <a href="{% url 'change_password' account.id %}" class="btn btn-primary">Change Password</a>
+                <a href="{% url 'change_password' account.pk %}" class="btn btn-primary">Change Password</a>
             </div>
 
-            <form method="post" action="{% url 'delete_account' account.id %}" class="d-grid mb-2">
+            <form method="post" action="{% url 'delete_account' account.pk %}" class="d-grid mb-2">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Delete Account</button>
             </form>
