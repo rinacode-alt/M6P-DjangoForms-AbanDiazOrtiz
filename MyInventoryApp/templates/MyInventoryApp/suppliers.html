@@ -4,36 +4,32 @@
 {% block title %}Suppliers | My Inventory{% endblock %}
 
 {% block sidebar %}
-<li class="nav-item">
-    <a class="nav-link active" href="{% url 'view_supplier' %}">
-        <i class="material-icons">business</i>
-        Suppliers
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'view_bottles' %}">
-        <i class="material-icons">local_drink</i>
-        Water Bottles
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'add_bottle' %}">
-        <i class="material-icons">add_circle_outline</i>
-        Add Water Bottles
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{% url 'manage_account' request.session.user_id %}">
-        <i class="material-icons">account_circle</i>
-        Manage Account
-    </a>
-</li>
-<li class="nav-item mt-3">
-    <a class="nav-link text-danger" href="{% url 'logout' %}">
-        <i class="material-icons">logout</i>
-        Logout
-    </a>
-</li>
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="">
+            <i class="material-icons">account_circle</i>
+            <strong>{{account.username}}</strong>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'add_bottle' %}">
+            <i class="material-icons">add_circle_outline</i>
+            Add Water Bottle
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'manage_account' pk=account.pk %}">
+            <i class="material-icons">settings</i>
+            Manage Account
+        </a>
+    </li>
+    <li class="nav-item mt-3">
+        <a class="nav-link text-danger" href="{% url 'logout' %}">
+            <i class="material-icons">logout</i>
+            Logout
+        </a>
+    </li>
+</ul>
 {% endblock %}
 
 {% block content %}
@@ -47,7 +43,7 @@
                 <div class="card-body">
                     {% if messages %}
                         {% for message in messages %}
-                            <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show" role="alert">
+                            <div class="alert alert-dismissible fade show" role="alert">
                                 {{ message }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
@@ -69,12 +65,12 @@
                                 {% if suppliers %}
                                     {% for supplier in suppliers %}
                                         <tr>
-                                            <td>{{ supplier.name }}</td>
+                                            <td><a class="nav-link text-dark" href="{% url 'view_bottles' %}">{{ supplier.name }}</a></td>
                                             <td>{{ supplier.city }}</td>
                                             <td>{{ supplier.country }}</td>
                                             <td>{{ supplier.created_at|date:"F j, Y" }}</td>
                                             <td class="text-center">
-                                                <a href="{% url 'view_bottles' %}?supplier={{ supplier.id }}" class="btn btn-sm btn-outline-primary">
+                                                <a href="{% url 'view_bottles' %}" class="btn btn-sm btn-outline-primary">
                                                     View Bottles
                                                 </a>
                                             </td>
