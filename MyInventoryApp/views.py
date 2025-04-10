@@ -62,3 +62,49 @@ def add_bottle(request):
         return redirect('login')
         
     return render(request, 'MyInventoryApp/add_bottle.html')
+
+def manage_account(request, pk):
+    if 'user_id' not in request.session or request.session['user_id'] != pk:
+        return redirect('login')
+    
+    try:
+        account = Account.objects.get(pk=pk)
+    except Account.DoesNotExist:
+        return redirect('login')
+    
+    return render(request, 'MyInventoryApp/manage_account.html', {'account': account})
+
+def delete_account(request, pk):
+    if 'user_id' not in request.session or request.session['user_id'] != pk:
+        return redirect('login')
+    
+    try:
+        account = Account.objects.get(pk=pk)
+        account.delete()
+        request.session.flush()  # clears the session
+        return redirect('login')
+    except Account.DoesNotExist:
+        return redirect('login')
+
+def change_password(request, pk):
+    if 'user_id' not in request.session or request.session['user_id'] != pk:
+        return redirect('login')
+    
+    account = Account.objects.get(pk=pk)
+    
+    if request.method == 'POST':
+        current = request.POST.get('current_password')
+        new1 = request.POST.get('new_password')
+        new2 = request.POST.get('confirm_password')
+        
+        if current != account.getPassword():
+            messages.error(request, 'Current password is incorrect.')
+        elif new1 != new2:
+            messages.error(request, 'New passwords do not match.')
+        else:
+            account.password = new1
+            account.save()
+            messages.success(request, 'Password updated successfully.')
+            return redirect('manage_account', pk=pk)
+    
+    return render(request, 'MyInventoryApp/change_password.html', {'account': account})

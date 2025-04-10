@@ -1,0 +1,27 @@
+{% extends 'MyInventoryApp/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <div class="card col-md-4">
+        <div class="card-header text-center">
+            <h4>Manage Account</h4>
+        </div>
+        <div class="card-body text-center">
+            <p class="mb-4"><strong>Username:</strong> {{ account.username }}</p>
+
+            <div class="d-grid mb-2">
+                <a href="{% url 'change_password' account.id %}" class="btn btn-primary">Change Password</a>
+            </div>
+
+            <form method="post" action="{% url 'delete_account' account.id %}" class="d-grid mb-2">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete Account</button>
+            </form>
+
+            <div class="d-grid">
+                <a href="{% url 'view_supplier' %}" class="btn btn-outline-secondary">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
