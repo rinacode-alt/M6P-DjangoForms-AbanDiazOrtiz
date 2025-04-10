@@ -1,0 +1,56 @@
+{% extends 'MyInventoryApp/base.html' %}
+{% load static %}
+
+{% block sidebar %}
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="">
+            <i class="material-icons">account_circle</i>
+            <strong>{{account.username}}</strong>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'view_bottles' %}">
+            <i class="material-icons">local_drink</i>
+            Back to Water Bottles
+        </a>
+    </li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="card-title mb-0">{{bottle.SKU}}</h4>
+                </div>
+
+                <div class="card-body">
+                    <ul>
+                        <li> Brand: <strong>{{bottle.brand}}</strong> </li>
+                        <li> Cost: <strong>{{bottle.cost}}</strong> </li>
+                        <li> Size: <strong>{{bottle.size}}</strong> </li>
+                        <li> Mouth Size: <strong>{{bottle.mouthSize}}</strong> </li>
+                        <li> Color: <strong>{{bottle.color}}</strong> </li>
+                        <li> Supplier: <strong>{{bottle.supplier}}</strong> </li> 
+                        <li> Quantity: <strong>{{bottle.quantity}}</strong> </li>
+                    </ul>
+                    <div class="row gx-2">
+                        <div class="col-6">
+                            <button class="col-12 btn btn-secondary">
+                                <a class="nav-link text-white" href="{% url 'view_bottles' %}">Back</a>
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button class="col-12 btn btn-danger">
+                                <a class="nav-link text-white" href="{% url 'delete_bottle' pk2=bottle.pk %}">Delete</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
