@@ -1,12 +1,115 @@
 {% extends 'MyInventoryApp/base.html' %}
-
 {% load static %}
 
 {% block title %}Add Water Bottle{% endblock %}
 
+{% block sidebar %}
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="">
+            <i class="material-icons">account_circle</i>
+            <strong>{{account.username}}</strong>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'view_supplier' %}">
+            <i class="material-icons">business</i>
+            Suppliers
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'view_bottles' %}">
+            <i class="material-icons">local_drink</i>
+            Water Bottles
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'add_bottle' %}">
+            <i class="material-icons">add_circle_outline</i>
+            Add Water Bottles
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'manage_account' pk=account.pk %}">
+            <i class="material-icons">settings</i>
+            Manage Account
+        </a>
+    </li>
+    <li class="nav-item mt-3">
+        <a class="nav-link text-danger" href="{% url 'logout' %}">
+            <i class="material-icons">logout</i>
+            Logout
+        </a>
+    </li>
+</ul>
+{% endblock %}
+
 {% block content %}
-   <div class="container">
-    <h2>Add Water Bottle</h2>
-    <p>This page is for adding water bottles, but the functionality is not yet implemented.</p>
-   </div>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="card-title mb-0">Add Bottle</h4>
+                </div>
+
+                <div class="card-body">
+                    <form method="POST" action="{% url 'add_bottle' %}">
+                        {% csrf_token %}
+                        <div class="row mb-2 gx-2">
+                            <div class="col-3">
+                                <input class="form-control" type="text" name="sku" placeholder="SKU" required unique="True">
+                            </div>
+                            <div class="col-9">
+                                <input class="form-control" type="text" name="brand" placeholder="Brand" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2 gx-2">
+                            <div class="col-5">
+                                <input class="form-control" type="number" name="cost" placeholder="Cost" required>
+                            </div>
+                            <div class="col-7">
+                                <input class="form-control" type="text" name="size" placeholder="Size" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2 gx-2">
+                            <div class="col-6">
+                                <input class="form-control" type="text" name="mouth_size" placeholder="Mouth Size" required>
+                            </div>
+                            <div class="col-6">
+                                <input class="form-control" type="text" name="color" placeholder="Color" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2 gx-2">
+                            <div class="col-8">
+                                <select id="supplier" class="form-select" name="supplier" aria-placeholder="Supplier" required>
+                                    {% for supplier in suppliers %}
+                                    <option value="{{supplier.pk}}">{{supplier.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <input class="form-control" type="number" name="quantity" placeholder="Quantity" required>
+                            </div>
+                        </div>
+
+                        <div class="row gx-2">
+                            <div class="col-6">
+                                <button class="col-12 btn btn-secondary">
+                                    <a class="nav-link text-white" href="{% url 'view_supplier' %}">Cancel</a>
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button class="col-12 btn btn-primary"> Confirm </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
