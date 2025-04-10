@@ -2,33 +2,84 @@
 
 {% block title %}View Bottles{% endblock %}
 
-{% block content %}
-    <div class="container">
-        <h2>Water Bottles</h2>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Brand</th>
-                <th>SKU</th>
-                <th>Color</th>
-                <th>Size</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for bottle in bottles %}
-                <tr>
-                    <td>{{ bottle.brand }}</td>
-                    <td>{{ bottle.sku }}</td>
-                    <td>{{ bottle.color }}</td>
-                    <td>{{ bottle.size }}</td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="4">No water bottles available.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    </div>
+{% block sidebar %}
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="">
+            <i class="material-icons">account_circle</i>
+            <strong>{{account.username}}</strong>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'view_supplier' %}">
+            <i class="material-icons">business</i>
+            Back to Suppliers
+        </a>
+    </li>
+</ul>
+{% endblock %}
 
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm mt-4">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="card-title mb-0">Suppliers</h4>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alertt-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <div class="table-responsive mt-3">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col"> SKU </th>
+                                    <th scope="col"> Brand </th>
+                                    <th scope="col"> Size </th>
+                                    <th scope="col"> Price </th>
+                                    <th scope="col"> Mouth Size </th>
+                                    <th scope="col"> Color </th>
+                                    <th scope="col"> Supplier </th>
+                                    <th scope="col"> Current Quantity </th>
+                                    <th scope="col" class="text-center"> Details </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if bottles %}
+                                    {% for b in bottles %}
+                                        <tr>
+                                            <th> {{ b.SKU }} </th>
+                                            <td><a class="nav-link text-dark" href="{% url 'view_bottle_details' pk=b.pk %}">{{ b.brand }}</a></td>
+                                            <td> {{ b.cost }} </td>
+                                            <td> {{ b.size }} </td>
+                                            <td> {{ b.mouthSize }} </td>
+                                            <td> {{ b.color }} </td>
+                                            <td> {{ b.supplier }} </td> 
+                                            <td> {{ b.quantity }} </td>
+                                            <td class="text-center">
+                                                <a class="btn btn-sm btn-outline-primary" href="{% url 'view_bottle_details' pk=b.pk %}">Details</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="8" class="text-center">No bottles found.</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
